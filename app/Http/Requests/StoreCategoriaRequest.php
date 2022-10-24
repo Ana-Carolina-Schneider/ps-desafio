@@ -13,7 +13,8 @@ class StoreCategoriaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if (auth()->user()->access_level == 0 || auth()->user()->access_level == 1) return true;
+        else return false;
     }
 
     /**
@@ -24,7 +25,9 @@ class StoreCategoriaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'categoria' => [
+                'required', 'min:3'
+            ]
         ];
     }
 }
