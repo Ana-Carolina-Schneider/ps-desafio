@@ -32,7 +32,7 @@ class UpdateProdutoRequest extends FormRequest
                 'required', 'max:500',
             ],
             'caminho_imagem' => [
-                'required', 'min:3', 'image',
+                'required', 'mimes', 'image',
             ],
             'preco' => [
                 'required', 'gte:0', 'numeric',

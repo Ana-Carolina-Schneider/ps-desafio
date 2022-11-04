@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Categoria;
 use App\Models\Produto;
 
@@ -16,9 +18,10 @@ class SiteController extends Controller
         $this->categorias = $categorias;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $produtos = $this->produtos->all();
-        return view('site.index', compact('produtos'));
+        $categorias = $this->categorias->all();
+        return view('site.index', compact('produtos', 'categorias'));
     }
 }

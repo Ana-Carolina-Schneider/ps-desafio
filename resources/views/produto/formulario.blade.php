@@ -4,7 +4,7 @@
     <label class="col-sm-2 col-form-label">{{ __('Nome do Produto') }}</label>
     <div>
         <input type="text" id="nome_do_produto" name="nome_do_produto"
-            value="{{ isset($produto) ? $produto->nome : old('nome_do_produto') }}"
+            value="{{ isset($produto) ? $produto->nome_do_produto : old('nome_do_produto') }}"
             class="form-control @error('nome_do_produto') is-invalid @enderror" placeholder="Nome do Produto" required>
         @error('nome')
             <span class="invalid-feedback" role="alert">

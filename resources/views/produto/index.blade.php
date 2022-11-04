@@ -166,7 +166,7 @@
                 $("#detalhes-descricao").val(resposta[0].descricao);
                 $("#detalhes-quantidade").val(resposta[0].quantidade);
                 $("#detalhes-categoria").val(resposta[1].categoria);
-                $("#detalhes-imagem").attr('src', '/storage/imagens/' + resposta[0]
+                $("#detalhes-imagem").attr('src', resposta[0]
                     .caminho_imagem);
             });
         })

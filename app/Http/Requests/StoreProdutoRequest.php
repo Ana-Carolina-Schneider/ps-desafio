@@ -32,7 +32,7 @@ class StoreProdutoRequest extends FormRequest
                 'required', 'max:500',
             ],
             'caminho_imagem' => [
-                'required', 'min:3', 'image',
+                'required', 'image', 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             'preco' => [
                 'required', 'gte:0', 'numeric',

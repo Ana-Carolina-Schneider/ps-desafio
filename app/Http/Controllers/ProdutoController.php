@@ -39,9 +39,10 @@ class ProdutoController extends Controller
 
     public function store(StoreProdutoRequest $request)
     {
+
         $datas = $request->all();
         if ($request->hasFile('caminho_imagem')) {
-            $data['caminho_imagem'] = '/storage/' . $request->file('caminho_imagem')->store('produtos', 'public');
+            $datas['caminho_imagem'] = '/storage/' . $request->file('caminho_imagem')->storeAs('produtos', 'produto_' .  $datas['nome_do_produto'] . '.jpg', 'public');
         }
         $produto = $this->produtos->create($datas);
 
@@ -66,8 +67,9 @@ class ProdutoController extends Controller
     public function edit($id)
     {
         $produto = $this->produtos->find($id);
-        $categoria = Categoria::pluck('categorias', $produto->categorias);
-        return view('produto.crud', compact('produto'))->with('categorias', $categoria);
+        $categoria = $this->categorias->find($produto->categoria_id);
+        $categorias = $this->categorias->all();
+        return view('produto.crud', compact('produto', 'categoria', 'categorias'));
     }
 
 
@@ -75,6 +77,10 @@ class ProdutoController extends Controller
     {
         $datas = $request->all();
         $produto = $this->produtos->find($id);
+        if ($request->hasFile('caminho_imagem')) {
+            Storage::delete('public/' . $produto->caminho_imagem);
+            $datas['caminho_imagem'] = '/storage/' . $request->file('caminho_imagem')->storeAs('produtos', 'produto_' .  $datas['nome_do_produto'] . '.jpg', 'public');
+        }
 
         $produto->update($datas);
 

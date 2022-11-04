@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\SiteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,7 @@ Route::middleware('locale')->group(function () {
         return redirect()->route('dashboard');
     });
 
+
     Auth::routes();
 
     Route::middleware('auth')->group(function () {
@@ -52,5 +54,5 @@ Route::middleware('locale')->group(function () {
         });
     });
     //Rotas para o site
-    Route::resource('/', [SiteController::class, 'index']);
+    Route::resource('/', SiteController::class);
 });
