@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-  use HasApiTokens, HasFactory, Notifiable;
+  use HasFactory;
 
   protected $fillable = [
     'nome_do_produto',
@@ -15,7 +15,7 @@ class Produto extends Model
     'caminho_imagem',
     'preco',
     'quantidade',
-    'categoria',
+    'categoria_id',
   ];
 
   protected $casts = [

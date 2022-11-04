@@ -3,8 +3,9 @@
 <div class="row">
     <label class="col-sm-2 col-form-label">{{ __('Nome do Produto') }}</label>
     <div>
-        <input type="text" id="nome" name="nome" value="{{ isset($produto) ? $produto->nome : old('nome') }}"
-            class="form-control @error('nome') is-invalid @enderror" placeholder="Nome do Produto" required>
+        <input type="text" id="nome_do_produto" name="nome_do_produto"
+            value="{{ isset($produto) ? $produto->nome : old('nome_do_produto') }}"
+            class="form-control @error('nome_do_produto') is-invalid @enderror" placeholder="Nome do Produto" required>
         @error('nome')
             <span class="invalid-feedback" role="alert">
                 <i class="fi-circle-cross"></i><strong> {{ $message }}</strong>
@@ -19,8 +20,7 @@
     <label class="col-sm-2 col-form-label">{{ __('Descricao do Produto') }}</label>
     <div>
         <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror"
-            placeholder="Escreva uma descrição curta sobre o produto"
-            required>{{ isset($produto) ? $produto->descricao : old('descricao') }}</textarea>
+            placeholder="Escreva uma descrição curta sobre o produto" required>{{ isset($produto) ? $produto->descricao : old('descricao') }}</textarea>
         @error('descricao')
             <span class="invalid-feedback" role="alert">
                 <i class="fi-circle-cross"></i><strong> {{ $message }}</strong>
@@ -35,7 +35,8 @@
 <div class="row">
     <label class="col-sm-2 col-form-label">{{ __('Preço do Produto') }}</label>
     <div>
-        <input type="text" id="preco" name="preco" value="{{ isset($produto) ? $produto->preco : old('preco') }}"
+        <input type="number" step="0.01" id="preco" name="preco"
+            value="{{ isset($produto) ? $produto->preco : old('preco') }}"
             class="form-control @error('preco') is-invalid @enderror" required>
         @error('preco')
             <span class="invalid-feedback" role="alert">
@@ -88,8 +89,8 @@
 {{-- Imagem --}}
 <div class="row">
     <div class="col-sm-2 col-form-label">
-        <label class="@if (!isset($produto)) required @endif" for="image">Imagens</label>
-        <input type="file" name="imagem" class="form-control" accept="image/*"
+        <label class="@if (!isset($produto)) required @endif" for="caminho_imagem">Imagens</label>
+        <input type="file" name="caminho_imagem" class="form-control" accept="image/*"
             @if (!isset($produto)) required @endif>
     </div>
 </div>

@@ -13,7 +13,8 @@ class UpdateProdutoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if (auth()->user()->access_level == 0 || auth()->user()->access_level == 1) return true;
+        else return false;
     }
 
     /**
@@ -24,7 +25,25 @@ class UpdateProdutoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome_do_produto' => [
+                'required', 'min:3',
+            ],
+            'descricao' => [
+                'required', 'max:500',
+            ],
+            'caminho_imagem' => [
+                'required', 'min:3', 'image',
+            ],
+            'preco' => [
+                'required', 'gte:0', 'numeric',
+                /*comando: gte - O campo em validação deve ser maior ou igual ao campo fornecido */
+            ],
+            'quantidade' => [
+                'required', 'gte:0', 'numeric',
+            ],
+            'categoria_id' => [
+                'required', 'unique:categoria_id',
+            ],
         ];
     }
 }

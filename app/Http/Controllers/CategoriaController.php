@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaRequest;
+use App\Http\Requests\UpdateCategoriaRequest;
 use App\Http\Requests\StoreCategoriaRequest;
 use Illuminate\Http\Request;
+use App\Models\Log;
 
 use App\Models\Categoria;
 
@@ -20,13 +23,13 @@ class CategoriaController extends Controller
     public function index(CategoriaRequest $request)
     {
         $categorias = $this->categorias->all();
-        return view('admin.categoria.index', compact('categorias'));
+        return view('categoria.index', compact('categorias'));
     }
 
 
     public function create()
     {
-        return view('admin.categoria.crud');
+        return view('categoria.crud');
     }
 
 
@@ -50,7 +53,7 @@ class CategoriaController extends Controller
     public function edit($id)
     {
         $categoria = $this->categorias->find($id);
-        return view('admin.categoria.crud', compact('categoria'));
+        return view('categoria.crud', compact('categoria'));
     }
 
     public function update(Request $request, $id)

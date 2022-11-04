@@ -4,36 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Produto;
+use App\Http\Requests\ProdutoRequest;
+use App\Http\Requests\UpdateProdutoRequest;
+use App\Http\Requests\StoreProdutoRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\Log;
+use SebastianBergmann\Complexity\Complexity;
 
 class ProdutoController extends Controller
 {
     private $produtos;
+    private $categorias;
 
-    public function __construct(Produto $produto)
+    public function __construct(Produto $produtos, Categoria $categorias)
     {
-        $this->produtos = $produto;
+        $this->produtos = $produtos;
+        $this->categorias = $categorias;
     }
 
-    public function index(ProdutoRequest $request)
+    public function index()
     {
         $produtos = $this->produtos->all();
-        return view('admin.produto.index', compact('produtos'));
+        return view('produto.index', compact('produtos'));
     }
 
 
     public function create()
     {
-        return view('admin.produto.crud');
+        $categorias = $this->categorias->all();
+        return view('produto.crud', compact('categorias'));
     }
 
 
-    public function store(ProdutoRequest $request)
+    public function store(StoreProdutoRequest $request)
     {
         $datas = $request->all();
+        if ($request->hasFile('caminho_imagem')) {
+            $data['caminho_imagem'] = '/storage/' . $request->file('caminho_imagem')->store('produtos', 'public');
+        }
         $produto = $this->produtos->create($datas);
+
 
         //Log de ações
         $logMessage = 'O usuário ' . '[' . auth()->id() . '] - ' . auth()->user()->name . ' cadastrou um novo produto ' . '[' . $produto->id . '] - ' . $produto->produto;
@@ -46,15 +57,17 @@ class ProdutoController extends Controller
     public function show($id)
     {
         $produto = $this->produtos->find($id);
+        $categoria = $this->categorias->find($produto->categoria_id);
 
-        return json_encode($produto);
+        return json_encode([$produto, $categoria]);
     }
 
 
     public function edit($id)
     {
         $produto = $this->produtos->find($id);
-        return view('admin.produto.crud', compact('produto'));
+        $categoria = Categoria::pluck('categorias', $produto->categorias);
+        return view('produto.crud', compact('produto'))->with('categorias', $categoria);
     }
 
 

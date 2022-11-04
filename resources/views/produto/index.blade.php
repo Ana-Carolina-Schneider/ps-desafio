@@ -33,7 +33,7 @@
                                         @foreach ($produtos as $produto)
                                             <tr>
                                                 <td>{{ $produto->id }}</td>
-                                                <td>{{ $produto->nome }}</td>
+                                                <td>{{ $produto->nome_do_produto }}</td>
                                                 <td>
                                                     <!-- botao editar -->
                                                     <a href="{{ route('produto.edit', $produto->id) }}">
@@ -82,7 +82,6 @@
                             color: red;
                             font-weight: bold;
                         }
-
                     </style>
                     <div class="modal-footer">
                         <form id="form-excluir" method="POST" enctype="multipart/form-data">
@@ -135,8 +134,8 @@
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <h5 class="modal-title col-12 text-dark" id="serviceModalLabel">Categoria do Produto</h5>
-                                <input type="text" id="detalhes-categoria" name="detalhes-categoria" class="form-control"
-                                    readonly>
+                                <input type="text" id="detalhes-categoria" name="detalhes-categoria"
+                                    class="form-control" readonly>
                             </div>
 
                             <img id="detalhes-imagem" class="form-group col-md-6 col-sm-12" />
@@ -162,12 +161,13 @@
             const url = 'produto/' + id
             $.getJSON(url, (resposta) => {
                 console.log(resposta);
-                $("#detalhes-nome").val(resposta.nome);
-                $("#detalhes-preço").val(resposta.preco);
-                $("#detalhes-descricao").val(resposta.descricao);
-                $("#detalhes-quantidade").val(resposta.quantidade);
-                $("#detalhes-categoria").val(resposta.categoria);
-                $("#detalhes-imagem").attr('src', '/storage/' + resposta.imagem);
+                $("#detalhes-nome").val(resposta[0].nome_do_produto);
+                $("#detalhes-preço").val(resposta[0].preco);
+                $("#detalhes-descricao").val(resposta[0].descricao);
+                $("#detalhes-quantidade").val(resposta[0].quantidade);
+                $("#detalhes-categoria").val(resposta[1].categoria);
+                $("#detalhes-imagem").attr('src', '/storage/imagens/' + resposta[0]
+                    .caminho_imagem);
             });
         })
         /* js para abrir Modal de excluir de forma dinâmica */

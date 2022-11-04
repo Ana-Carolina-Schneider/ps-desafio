@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('caminho_imagem');
             $table->float('preco');
             $table->integer('quantidade');
-            $table->unsignedBigInteger('categoria');
-            $table->foreign('categoria')->references('id')->on('categorias');
+            $table->unsignedBigInteger('categoria_id');
+            $table->foreign('categoria_id')->references('id')->on('categorias');
 
             $table->timestamps();
         });

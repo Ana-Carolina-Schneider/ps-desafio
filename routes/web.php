@@ -24,7 +24,7 @@ Route::middleware('locale')->group(function () {
 
     Route::put('/locale', [LocaleController::class, 'setLocale'])->name('locale');
 
-    Route::get('/', function () {
+    Route::get('admin', function () {
         return redirect()->route('dashboard');
     });
 
@@ -51,4 +51,6 @@ Route::middleware('locale')->group(function () {
             Route::put('profile/password', 'password')->name('password');
         });
     });
+    //Rotas para o site
+    Route::resource('/', [SiteController::class, 'index']);
 });
