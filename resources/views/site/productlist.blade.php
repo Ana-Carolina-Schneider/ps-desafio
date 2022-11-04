@@ -2,8 +2,8 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                @foreach ($produtos as $produto)
-                    <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    @foreach ($produtos as $produto)
                         <div class="card" style="width: 18rem;">
                             <img class="card-img-top" src="{{ $produto->caminho_imagem }}" alt="Imagem do produto"
                                 height='200'>
@@ -14,12 +14,13 @@
                                 @if ($produto->quantidade > 0)
                                     <a href="#" class="btn btn-primary">Comprar</a>
                                 @else
-                                    <a href="#" class="btn btn-primary disabled" aria-disabled="true">SEM ESTOQUE</a>
+                                    <a href="#" class="btn btn-primary disabled" aria-disabled="true">SEM
+                                        ESTOQUE</a>
                                 @endif
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
